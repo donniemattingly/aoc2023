@@ -7,6 +7,11 @@ input ← •FLines "input/1.in"
 spelled ← ⟨"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"⟩
 replacements ← ⟨"1ne", "2wo", "3hree", "4our", "5ive", "6ix", "7even", "8ight", "9ine"⟩
 
+a ← ⋈¨ ('0'+ 1+↕≠spelled)
+b ← 1↓¨ spelled
+c ← ⍉ 2‿∘ ⥊ a∾b
+replacements ← <∘∾˘c
+
 •Show +´(•ParseFloat○⊏⍉○(≍⟜⌽ ((10⊸> -⟜'0')⊸/)))¨ input
 
 ReplaceDigitFirst ← { spelled‿replacements s.ReplaceAll 𝕩 }
