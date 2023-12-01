@@ -1,11 +1,6 @@
 s ← •Import "strings.bqn"
-
-ex ← •FLines "input/ex1.in"
 input ← •FLines "input/1.in"
-
-
 digits ← ⟨"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"⟩
-# replacements ← ⟨"1ne", "2wo", "3hree", "4our", "5ive", "6ix", "7even", "8ight", "9ine"⟩
 
 a ← ⋈¨ ('0'+ 1+↕≠digits)
 b ← 1↓¨ digits
