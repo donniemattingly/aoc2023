@@ -1,3 +1,5 @@
+# Taken from https://github.com/mlochbaum/bqn-libs/blob/master/strings.bqn
+
 ⟨
   _join
   Split, Locate
