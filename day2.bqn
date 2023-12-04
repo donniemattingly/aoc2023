@@ -24,19 +24,15 @@ valid ← 14‿13‿12
 GameIsValid ← {⌊´ ⥊ valid ≥ ⍉𝕩}
 
 Part1 ← {𝕩:
-    gameSums ← SumGame¨ ParseGame¨ 𝕩
-    validMask ← GameIsValid¨ gameSums
+    validMask ← GameIsValid¨ SumGame¨ ParseGame¨ 𝕩
     idSum ← +´ validMask × 1 + ↕ ≠validMask
 }
 
+MinCount ← {⌈˝ 𝕩}
 
-MinCount ← {⌊˝ 𝕩}
-
-Part2 ← {𝕩:
-    gameSums ← SumGame¨ ParseGame¨ 𝕩
-    mins ← MinCount¨ gameSums
-}
+Part2 ← {powerSum ← +´ (×´)¨ MinCount¨ SumGame¨ ParseGame¨ 𝕩}
 
 gameSums ← SumGame¨ ParseGame¨ ex
 
 •Show Part1 in
+•Show Part2 in
