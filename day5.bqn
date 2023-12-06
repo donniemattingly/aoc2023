@@ -66,4 +66,4 @@ MakeCheckAndMap ← {GetCheck⟜𝕩◶⟨⊣, Transform⟜𝕩⟩}
 
 TransformForMap ← {MakeCheckAndMap´ 𝕩}
 
-TransformForMap¨ maps
+funs ← TransformForMap¨ maps
