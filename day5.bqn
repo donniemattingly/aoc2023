@@ -4,51 +4,15 @@ ex ← •file.Chars "input/ex5.in"
 in ← •file.Chars "input/5.in"
 
 lf ← @+10
-SplitAtDoubleLineFeed ← lf‿lf⊸s.Split
 
+input ← in
+chunks ← lf‿lf⊸s.Split input
 
-input ← ex
-chunks ← SplitAtDoubleLineFeed input
-
-seeds ← 1↑ chunks
+seeds ← •ParseFloat¨ " " s.Split 7↓ ⊑ 1↑ chunks
 maps ← •ParseFloat¨¨¨ ' '⊸s.Split¨¨ 1⊸↓¨ lf⊸s.Split¨ 1↓ chunks
-
-map1 ← ⊑ maps
-m1 ← ⊑ map1
-
-ParseMapping ← {𝕊 ⟨dest, source, range⟩: source - dest}
-ParseMapping m1
-
-ApplyMapping ← { 𝕨𝕊𝕩:
-    ⟨dest, source, range⟩ ← 𝕨
-    delta ← source - dest
-    K ← {(⊑ 𝕩 ∊ source + ↕range) ⊑ ⟨0, ¯1 × delta⟩}
-    𝕩 + K¨ 𝕩
-}
-
-GetMapping ← {𝕊𝕩:
-    ⟨dest, source, range⟩ ← 𝕩
-    delta ← source - dest
-    K ← {(⊑ 𝕩 ∊ source + ↕range) ⊑ ⟨0, ¯1 × delta⟩}
-}
-
-⟨dest, source, range⟩ ← m1
-delta ← source - dest
-
-K ← {(⊑ 𝕩 ∊ source + ↕range) ⊑ ⟨0, ¯1 × delta⟩}
-
-(↕100) ApplyMapping´ ⊑ maps
-
-borders ← ∧ ⍷ ∾(+`¨ ∾1↓¨¨maps)
-
-≠ borders
-
-map1 
-
 
 GetCheck ← { 𝕨𝕊𝕩:
     a‿b‿c ← 𝕩
-    •Show 𝕩‿𝕨
     (b ≤ 𝕨) ∧ (𝕨 < (b + c))
 }
 
@@ -57,13 +21,16 @@ Transform ← { 𝕨𝕊𝕩:
     𝕨 + (a-b)
 }
 
-2 GetCheck m1
-99 Transform m1
+M2 ← {⟨Transform⟜𝕩, GetCheck⟜𝕩⟩}
+MapFn ← { 𝕊𝕩:
+    checks ← 1⊸⊑¨ M2¨ 𝕩
+    transforms ← ⊑¨ M2¨ 𝕩
+    R ← {⊑ ({𝕩 {𝕏𝕨}¨ checks} 𝕩) ⊐ 1}
+    {R◶(transforms∾⟨⊣⟩) 𝕩}
+}
 
-Y←GetCheck⟜m1◶⟨⊣, Transform⟜m1⟩
+funs ← MapFn¨ maps
 
-MakeCheckAndMap ← {GetCheck⟜𝕩◶⟨⊣, Transform⟜𝕩⟩}
+Full ← {𝕩 {𝕏𝕨}{𝕨𝔽˜´⌽𝕩} funs}
 
-TransformForMap ← {MakeCheckAndMap´ 𝕩}
-
-funs ← TransformForMap¨ maps
+⌊´ Full¨ seeds
