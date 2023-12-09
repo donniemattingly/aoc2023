@@ -5,10 +5,12 @@ in ← •file.Chars "input/5.in"
 
 lf ← @+10
 
-input ← in
+input ← ex
 chunks ← lf‿lf⊸s.Split input
 
 seeds ← •ParseFloat¨ " " s.Split 7↓ ⊑ 1↑ chunks
+ranges ← ⥊ ⋈˘ ∘‿2⥊seeds
+borders ← ∧ ⍷ ∾(+`¨ ∾1↓¨¨maps)
 maps ← •ParseFloat¨¨¨ ' '⊸s.Split¨¨ 1⊸↓¨ lf⊸s.Split¨ 1↓ chunks
 
 GetCheck ← { 𝕨𝕊𝕩:
@@ -33,4 +35,11 @@ funs ← MapFn¨ maps
 
 Full ← {𝕩 {𝕏𝕨}{𝕨𝔽˜´⌽𝕩} funs}
 
-⌊´ Full¨ seeds
+⌊´ Full¨ borders
+
+
+GenRange ← {𝕊𝕩:
+    a‿b ← 𝕩
+    a + ↕b
+}
+
