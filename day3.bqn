@@ -1,14 +1,8 @@
 s ← •Import "strings.bqn"
+u ← •Import "utils.bqn"
 ex ← •FLines "input/ex3.in"
 in ← •FLines "input/3.in"
-
-ListToMat ← {𝕩:
-    h ← ≠ 𝕩
-    w ← ⌈´ ≠¨ 𝕩
-    h‿w ⥊ ∾´𝕩
-    }
-
-mat ← ListToMat ex
+mat ← u.ListToMat in
 
 digits ← (-⟜'0' mat)
 nums ← digits ∧ ((digits < 10)∧(digits > 0))
@@ -59,7 +53,7 @@ s ← (∊˘ r) ∧ r
 +´ ⥊ s
 
 digits←'0'+↕10
-n‿m←≢input←>•FLines"input/ex3.in"
+n‿m←≢input←>•FLines"input/3.in"
 
 sympos←⍉>m(⌊∘÷˜⋈|)/⥊¬input∊digits∾'.'
 digpos←(0≠≠)¨⊸/ <˘¨{+`1⊸<|+´˘+`⁼𝕩}⊸⊔ ⍉>m(⌊∘÷˜⋈|)/⥊input∊digits
